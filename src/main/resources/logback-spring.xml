@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${APP_HOME}/log/backend.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${APP_HOME}/log/backend.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.dp" level="DEBUG"/>
+<!--	<logger name="com.dp.commons" level="INFO"/>-->
+
+	<logger name="org.springframework" level="INFO" />
+	<logger name="io.netty" level="INFO" />
+	<logger name="springfox.documentation" level="OFF" />
+	<logger name="log4j.logger.org.apache.commons.exec" level="DEBUG"/>
+	<logger name="org.hibernate.SQL" level="DEBUG"/>
+	<logger name="org.hibernate.type" level="TRACE"/>
+    <!--<logger name="org.springframework.beans" level="debug" />-->
+    <!--<logger name="org.springframework.beans.factory.xml" level="info" />-->
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
